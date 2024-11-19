@@ -1,3 +1,4 @@
+from time import sleep
 from tkinter import LEFT, CENTER
 from tkinter import StringVar
 
@@ -106,11 +107,12 @@ def generate_new_set_of_data(main_frame, summary, title,
     action_frame = ck.CTkFrame(main_frame, width=200, height=200)
 
     button_restart = create_button(action_frame, "Restart")
-    button_restart.configure(command=lambda: game_action("restart"))
+    button_restart.configure(
+        command=lambda: game_action(main_frame, "restart"))
 
     button_back_main_menu = create_button(action_frame, "Back to Main Menu")
     button_back_main_menu.configure(
-        command=lambda: game_action("back_to_main_menu"))
+        command=lambda: game_action(main_frame, "back_to_main_menu"))
 
     button_restart.grid(row=0, column=0)
     button_back_main_menu.grid(row=0, column=1)
@@ -118,8 +120,12 @@ def generate_new_set_of_data(main_frame, summary, title,
     action_frame.pack(anchor="center")
 
 
-def game_action(action):
-    print(action)
+def game_action(main_frame, action):
+    global player_name
+    if "restart" in action:
+        start_game(main_frame, player_name)
+    else:
+        sleep(1)
 
 
 def create_button(button_frame, l_shuffled):
@@ -179,8 +185,6 @@ def start_game(main_frame, player):
     new_game(main_frame)
 
 
-
-
 def new_game(main_frame):
     clearFrame(main_frame)
     generate_header(main_frame)
@@ -189,33 +193,3 @@ def new_game(main_frame):
                              incorrect_title,
                              hints)
 
-
-def main():
-    root = ck.CTk()
-    root.geometry("850x850")
-    root.title("Guess the Title")
-
-    global counter_round, counter_life, player_name, var_life, var_round
-
-    player_name = "Jerome"
-    counter_life = 3
-    counter_round = 0
-    var_life = StringVar()
-    var_life.set(f"Life: 3")
-    var_round = StringVar()
-    var_round.set(f"Round: 0")
-
-    var_round.set(f"Round: {counter_round}")
-    var_life.set(f"Life: {counter_life}")
-
-    main_frame = ck.CTkFrame(root, fg_color="transparent")
-
-    new_game(main_frame)
-
-    main_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
-
-    root.mainloop()
-
-
-if __name__ == '__main__':
-    main()
