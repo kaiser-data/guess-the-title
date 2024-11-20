@@ -80,7 +80,7 @@
 
 2. Navigate to the project directory:  
    ```bash
-   cd trivia-challenge-game
+   cd guess-the-title
 
 3. Install dependencies:  
    ```bash  
