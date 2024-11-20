@@ -31,7 +31,6 @@ initialize_variables("Jerome")
 new_game(frames["play"], frames)
 
 """ HIGHSCORE """
-
 high_score_board(frames)
 
 """HOW TO PLAY"""

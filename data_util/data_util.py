@@ -3,9 +3,11 @@ import sys
 import os
 from pathlib import Path
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 JSON_FILE_PATH = Path(__file__).parent.parent / "data" / "high_score.json"
+
 
 def reading_highscores():
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -26,7 +28,8 @@ def saving_highscores(data):
 
 def get_scores():
     all_scores = reading_highscores()
-    sorted_scores = sorted(all_scores.items(), key=lambda x: x[1], reverse=True)
+    sorted_scores = sorted(all_scores.items(), key=lambda x: x[1],
+                           reverse=True)
 
     for name, score in sorted_scores[:5]:
         print(f"{name}: {score}")
@@ -36,5 +39,7 @@ def get_scores():
 
 def set_score(name, score):
     data = reading_highscores()
-    data[name] = score
+    for data_name, data_score in data.items():
+        if score > data_score:
+            data[name] = score
     saving_highscores(data)

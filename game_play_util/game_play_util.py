@@ -170,7 +170,7 @@ def generate_new_set_of_data(main_frame, frames, summary, title,
 
 
 def restart_game(frames):
-    initialize_variables(frames["play"], "Jerome")
+    initialize_variables("Jerome")
     new_game(frames["play"], frames)
 
 
