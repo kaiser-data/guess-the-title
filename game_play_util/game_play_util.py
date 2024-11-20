@@ -22,6 +22,14 @@ global counter_round, counter_life, counter_score
 
 
 def initialize_variables():
+    """
+    Initializes game variables such as player name, round, life, and score.
+    Prompts the user for their name if it hasn't been set yet.
+    Also initializes the `StringVar` objects for round, life, and score display.
+
+    Returns:
+        None
+    """
     global counter_round, counter_life, counter_score, player_name, var_life, var_round, var_score
 
     if player_name == "name":
@@ -46,6 +54,16 @@ def initialize_variables():
 
 
 def generate_options(title):
+    """
+    Generates multiple answer options for the game, shuffling the correct answer
+    with other randomly fetched titles from the API.
+
+    Parameters:
+        title (str): The correct answer to be included in the options list.
+
+    Returns:
+        list: A shuffled list of options, including the correct answer and three random titles.
+    """
     options = [title, ]
     time.sleep(1)
     for i in range(3):
@@ -56,6 +74,14 @@ def generate_options(title):
 
 
 def get_data_from_api():
+    """
+    Fetches data related to a title from an Wikipedia API, including its summary,
+    categories, and an image link, and prepares it for the game.
+
+    Returns:
+        tuple: A tuple containing the title, a truncated summary,
+               hints (categories), and shuffled options for the game.
+    """
     title, summary, image_link = get_title_and_summary_imagelink()
     summary = remove_title_from_summary(title, summary)
 
@@ -75,6 +101,17 @@ def get_data_from_api():
 
 
 def remove_title_from_summary(title, summary):
+    """
+    Removes the title from the summary text by replacing all occurrences of the title
+    (in various cases) with a placeholder.
+
+    Parameters:
+        title (str): The title to be removed from the summary.
+        summary (str): The summary text to process.
+
+    Returns:
+        str: The summary text with the title replaced by '?'.
+    """
     title = remove_special_characters(title)
     title_words = title.split()
     summary_r_title = summary
@@ -93,6 +130,17 @@ def remove_title_from_summary(title, summary):
 
 
 def new_game(main_frame, frames):
+    """
+    Starts a new game by clearing the main frame, displaying the new game data,
+    and initiating the game cycle.
+
+    Parameters:
+        main_frame (CTkFrame): The frame in which the game content is displayed.
+        frames (dict): A dictionary containing the different frames of the game.
+
+    Returns:
+        None
+    """
     while True:
         try:
             clearFrame(main_frame)
@@ -109,12 +157,34 @@ def new_game(main_frame, frames):
 
 
 def create_button(button_frame, l_shuffled):
+    """
+    Creates and returns a custom button widget in the provided frame.
+
+    Parameters:
+        button_frame (CTkFrame): The frame in which the button will be placed.
+        l_shuffled (str): The text to be displayed on the button.
+
+    Returns:
+        CTkButton: The created button widget with the specified text.
+    """
     return ck.CTkButton(button_frame, text=l_shuffled)
 
 
 def generate_new_set_of_data(main_frame, frames, summary, title,
                              options,
                              hints):
+    """
+    Generates a new set of data for the game, including options, hints,
+    a summary of the title, and an image. It also creates the game buttons.
+
+    Parameters:
+        main_frame (CTkFrame): The frame in which to display the new game content.
+        frames (dict): A dictionary containing the different frames of the game.
+        summary (str): A truncated summary of the title to be displayed.
+        title (str): The correct answer.
+        options (list): A list of shuffled options (including the correct answer).
+        hints (str): A string of category hints related to the title.
+    """
     l_shuffled = options
 
     image = Image.open("image.jpg")
@@ -184,12 +254,39 @@ def generate_new_set_of_data(main_frame, frames, summary, title,
 
 
 def restart_game(frames):
+    """
+    Restarts the game by reinitializing variables and starting a new game.
+
+    Parameters:
+        frames (dict): A dictionary containing the different frames of the game.
+    """
     initialize_variables()
     new_game(frames["play"], frames)
 
 
 def answer_from_user(player_choice, correct_title, main_frame, frames,
                      image_label):
+    """
+    Handles the player's answer to a quiz question.
+    It updates the round, score, and life based on the player's choice.
+    Displays an image indicating whether the answer was correct or incorrect,
+    and proceeds to the next round or ends the game.
+
+    Parameters:
+        player_choice (str): The answer selected by the player.
+        correct_title (str): The correct answer for the current quiz question.
+        main_frame (tkinter.Frame): The main frame of the game where UI elements are updated.
+        frames (dict): Dictionary of frames used in the game for switching views.
+        image_label (tkinter.Label): The label that displays the feedback image ("correct" or "wrong").
+
+    Updates:
+        counter_round (int): Increments the round count.
+        counter_life (int): Decreases the life count if the answer is wrong.
+        counter_score (int): Increases the score by 100 if the answer is correct.
+        var_round (StringVar): Updates the displayed round number.
+        var_life (StringVar): Updates the displayed number of lives.
+        var_score (StringVar): Updates the displayed score.
+    """
     global counter_round, counter_life, player_name, counter_score, var_round, var_life, var_score
     counter_round += 1
     var_round.set(f"Round: {counter_round}")
@@ -216,6 +313,24 @@ def answer_from_user(player_choice, correct_title, main_frame, frames,
 
 
 def end_game(counter_score, frames, image_label, main_frame, player_name):
+    """
+    Ends the current game, updates the score, and displays the highscore board.
+
+    Parameters:
+        counter_score (int): The player's final score at the end of the game.
+        frames (dict): Dictionary of frames used in the game for switching views.
+        image_label (tkinter.Label): The label displaying the current game image (e.g., "game over").
+        main_frame (tkinter.Frame): The main frame of the game where UI elements are updated.
+        player_name (str): The name of the player.
+
+    Updates:
+        Sets the player's final score using `set_score`.
+        Displays the "game over" image on `image_label`.
+        Clears and regenerates the highscore board frame using `clearFrame` and `high_score_board`.
+        Switches to the "highscore" frame to display the leaderboard.
+        Initializes game variables to their default values (e.g., round, score, lives).
+        Starts a new game with `new_game`.
+    """
     set_score(player_name, counter_score)  # set new score
 
     replacement_image = CTkImage(light_image=Image.open("game_over.png"),
@@ -236,6 +351,15 @@ def end_game(counter_score, frames, image_label, main_frame, player_name):
 
 
 def generate_options(title):
+    """
+    Generates a list of multiple-choice options for the user based on the given title.
+
+    Parameter:
+        title (str): The correct answer that will be included in the list of options.
+
+    Returns:
+        list: A shuffled list of 4 options, including the correct title and 3 other random titles.
+    """
     options = [title, ]
     time.sleep(1)
     for i in range(3):
@@ -246,6 +370,24 @@ def generate_options(title):
 
 
 def get_data_from_api():
+    """
+    Retrieves data from an external API and processes it for use in the game.
+
+    The function performs the following steps:
+    - Retrieves the title, summary, and image link for a random item via `get_title_and_summary_imagelink`.
+    - Fetches the categories for the title.
+    - Downloads the associated image.
+    - Generates multiple-choice options by calling `generate_options`.
+    - Extracts and formats the categories as hints.
+    - Returns the title, a shortened version of the summary, the formatted hints, and the options.
+
+    Returns:
+        tuple: A tuple containing:
+            - title (str): The correct answer (title).
+            - summary (str): The shortened summary (up to 150 characters).
+            - hints (str): A formatted string of category hints (if available).
+            - options (list): A shuffled list of four options, including the correct title and three random ones.
+    """
     title, summary, image_link = get_title_and_summary_imagelink()
     summary = remove_title_from_summary(title, summary)
 
@@ -271,6 +413,18 @@ def get_name():
 
 
 def game_status_info(round, lives, score, name):
+    """
+    Creates a string summarizing the current game status.
+
+    Parameters:
+        round (int): The current round number in the game.
+        lives (int): The number of lives remaining for the player.
+        score (int): The player's current score.
+        name (str): The name of the player.
+
+    Returns:
+        str: A string containing the formatted game status information.
+    """
     game_status_info = (f"\nPlayer: {name}\n"
                         f"That's round no. {round}.\n"
                         f"You have {lives} lives left.\n"

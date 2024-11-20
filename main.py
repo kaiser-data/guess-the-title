@@ -5,6 +5,17 @@ from frame_util.frame_util import *
 from PIL import Image
 import customtkinter as ck
 
+"""
+This script initializes the main game window for the "Guess the Title" game using the `customtkinter` library.
+
+The script creates a GUI with multiple frames for different parts of the game:
+- Menu: Displays the main menu where the player can choose options.
+- Enter Name: A frame for entering the player's name.
+- Play: The gameplay screen where the player interacts with the game.
+- Highscore: Displays the high scores.
+- How To Play: Provides instructions for playing the game.
+- Credits: Displays game credits.
+"""
 root = ck.CTk()
 
 frames = {
@@ -39,4 +50,3 @@ toggle_frames("menu", frames)
 credits_func(frames)
 
 root.mainloop()
-

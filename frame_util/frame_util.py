@@ -12,6 +12,16 @@ var_score = None
 
 
 def toggle_frames(frame_name, frames):
+    """
+    Switches between frames in the application.
+
+    Parameters:
+        frame_name (str): The name of the frame to display.
+        frames (dict): A dictionary of frames to toggle between.
+
+    Returns:
+        None: The function directly modifies the visible frames.
+    """
     """ Call this function to switch between the different pages and load the right frames."""
     if frame_name in frames:
         for frame in frames:
@@ -20,6 +30,16 @@ def toggle_frames(frame_name, frames):
 
 
 def create_menu_frame(image, frames):
+    """
+    Creates and displays the menu frame with buttons.
+
+    Parameters:
+        image (PIL.Image.Image): The image to display in the menu.
+        frames (dict): A dictionary of frames to toggle between.
+
+    Returns:
+        None: The menu frame with buttons is created and displayed.
+    """
     tk_image = CTkImage(light_image=image, dark_image=image, size=(400, 300))
 
     image_label = ck.CTkLabel(frames["menu"], text="", image=tk_image)
@@ -55,12 +75,37 @@ def create_menu_frame(image, frames):
 
 
 def clearFrame(frame):
+    """
+    Clears all widgets from a given frame.
+
+    This function removes all widgets in the specified frame and hides it by calling
+    `pack_forget()` on the frame.
+
+    Parameter:
+        frame (tkinter.Frame): The frame whose widgets are to be cleared.
+
+    Returns:
+        None: The function directly modifies the frame by removing its widgets.
+    """
     for widget in frame.winfo_children():
         widget.destroy()
     frame.pack_forget()
 
 
 def generate_header(main_frame, player_name, var_round, var_life, var_score):
+    """
+    Generates and displays a header with player information.
+
+    Parameters:
+        main_frame (tkinter.Frame): The main frame where the header will be displayed.
+        player_name (str): The name of the player.
+        var_round (tkinter.StringVar): The variable holding the current round.
+        var_life (tkinter.StringVar): The variable holding the player's remaining lives.
+        var_score (tkinter.StringVar): The variable holding the player's score.
+
+    Returns:
+        None: The header is displayed within the main frame.
+    """
     label_frame = ck.CTkFrame(main_frame, width=400, height=10,
                               fg_color="#2E8B57", )
     label_frame.pack(fill="x", side="top", pady=5)
@@ -94,6 +139,15 @@ def generate_header(main_frame, player_name, var_round, var_life, var_score):
 
 
 def high_score_board(frames):
+    """
+    Displays the top 5 high scores on the scoreboard.
+
+    Parameter:
+        frames (dict): A dictionary of frames to toggle between.
+
+    Returns:
+        None: The high score board is displayed with the top 5 scores.
+    """
     top_five = get_scores()
     htp_frame = ck.CTkFrame(frames["highscore"], width=750, height=550)
     htp_title_label = ck.CTkLabel(htp_frame, text="Scoreboard",
@@ -122,6 +176,15 @@ def high_score_board(frames):
 
 
 def how_to_play(frames):
+    """
+    Displays the instructions for how to play the game.
+
+    Parameter:
+        frames (dict): A dictionary of frames to toggle between.
+
+    Returns:
+        None: The "How to Play" frame is displayed with instructions.
+    """
     htp_frame = ck.CTkFrame(frames["htp"], width=750, height=550)
     htp_title_label = ck.CTkLabel(htp_frame, text="How to Play",
                                   font=("Arial", 30, "bold"))
@@ -193,6 +256,16 @@ def how_to_play(frames):
 
 
 def credits_func(frames):
+    """
+    Creates the Credits page frame, displaying the names of the developers and mentor,
+    along with a "Back to Main Menu" button to return to the main menu.
+
+    Parameters:
+        frames (dict): A dictionary containing the frames for different pages in the GUI.
+
+    Returns:
+        None: This function updates the `credits` frame in the `frames` dictionary in place.
+    """
     credits_frame = ck.CTkFrame(frames["credits"], width=750, height=550,
                                 fg_color="transparent")
     credits_title_label = ck.CTkLabel(credits_frame, text="Credits",
@@ -219,4 +292,14 @@ def credits_func(frames):
 
 
 def create_button(button_frame, l_shuffled):
+    """
+    Creates and returns a custom button widget in the provided frame.
+
+    Parameters:
+        button_frame (CTkFrame): The frame in which the button will be placed.
+        l_shuffled (str): The text to be displayed on the button.
+
+    Returns:
+        CTkButton: The created button widget with the specified text.
+    """
     return ck.CTkButton(button_frame, text=l_shuffled)
