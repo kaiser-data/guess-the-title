@@ -1,4 +1,4 @@
-# Trivia Challenge Game  
+# Guess the Title (Trivia Challenge Game)
 
 ## Description  
 **Guess the Title (Trivia Challenge Game)** is an engaging quiz game where players test their knowledge by answering trivia questions. With a clean user interface and fun gameplay mechanics, it offers a competitive experience with a leaderboard to track the top scores.  
