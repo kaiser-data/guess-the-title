@@ -41,7 +41,7 @@ def create_menu_frame(image, frames):
     credits_button = ck.CTkButton(button_frame_menu, text="CREDITS",
                                   font=("Arial", 30),
                                   command=lambda: toggle_frames(
-                                      credits_button, frames))
+                                      "credits", frames))
     exit_button = ck.CTkButton(button_frame_menu, text="EXIT",
                                font=("Arial", 30),
                                command=lambda: exit())
