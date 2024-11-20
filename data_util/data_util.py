@@ -2,6 +2,7 @@ import json
 import sys
 import os
 from pathlib import Path
+from time import sleep
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -39,7 +40,26 @@ def get_scores():
 
 def set_score(name, score):
     data = reading_highscores()
+    is_account_present_greater_than_score = False
+    is_account_new = True
+
     for data_name, data_score in data.items():
-        if score > data_score:
+        if name == data_name and score > data_score:
             data[name] = score
+            is_account_present_greater_than_score = True
+        if name == data_name:
+            is_account_new = False
+
+    if is_account_new:
+        data[name] = score
+        saving_highscores(data)
+
+    if is_account_present_greater_than_score:
+        saving_highscores(data)
+
+
+def update_score(name, score):
+    data = reading_highscores()
+    data.update({name: score})
     saving_highscores(data)
+

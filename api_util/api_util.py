@@ -41,12 +41,3 @@ def get_the_title_categories(title) -> str:
 
 def download_image(url, save_as):
     urllib.request.urlretrieve(url, save_as)
-
-
-
-
-def main():
-    pass
-
-if __name__ == "__main__":
-    main()

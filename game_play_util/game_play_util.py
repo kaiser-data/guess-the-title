@@ -93,12 +93,19 @@ def remove_title_from_summary(title, summary):
 
 
 def new_game(main_frame, frames):
-    clearFrame(main_frame)
-    generate_header(main_frame, player_name, var_round, var_life, var_score)
-    title, summary, hints, options = get_data_from_api()
-    generate_new_set_of_data(main_frame, frames, summary, title,
-                             options,
-                             hints)
+    while True:
+        try:
+            clearFrame(main_frame)
+            generate_header(main_frame, player_name, var_round, var_life,
+                            var_score)
+            title, summary, hints, options = get_data_from_api()
+            generate_new_set_of_data(main_frame, frames, summary, title,
+                                     options,
+                                     hints)
+        except Exception as e:
+            pass
+        else:
+            break;
 
 
 def create_button(button_frame, l_shuffled):
@@ -183,7 +190,7 @@ def restart_game(frames):
 
 def answer_from_user(player_choice, correct_title, main_frame, frames,
                      image_label):
-    global counter_round, counter_life, counter_score, var_round, var_life, var_score
+    global counter_round, counter_life, player_name, counter_score, var_round, var_life, var_score
     counter_round += 1
     var_round.set(f"Round: {counter_round}")
     if player_choice == correct_title:
@@ -195,13 +202,7 @@ def answer_from_user(player_choice, correct_title, main_frame, frames,
         main_frame.after(1000, lambda: new_game(main_frame, frames))
 
     elif counter_life == 0:
-        set_score(player_name, counter_score)
-        replacement_image = CTkImage(light_image=Image.open("game_over.png"),
-                                     size=(400, 400))
-        image_label.configure(image=replacement_image)
-        clearFrame(frames["highscore"])
-        high_score_board(frames)
-        main_frame.after(1000, lambda: toggle_frames("highscore", frames))
+        end_game(counter_score, frames, image_label, main_frame, player_name)
     else:
         counter_life -= 1
         var_life.set(f"Lives: {counter_life}")
@@ -212,6 +213,26 @@ def answer_from_user(player_choice, correct_title, main_frame, frames,
         main_frame.after(1000, lambda: new_game(main_frame, frames))
 
     time.sleep(0.5)
+
+
+def end_game(counter_score, frames, image_label, main_frame, player_name):
+    set_score(player_name, counter_score)  # set new score
+
+    replacement_image = CTkImage(light_image=Image.open("game_over.png"),
+                                 size=(400, 400))
+    image_label.configure(image=replacement_image)  # update the image
+
+    clearFrame(
+        frames["highscore"])  # clear the highscore frames with elements
+
+    high_score_board(frames)  # generate the highscore frame element
+
+    main_frame.after(1000, lambda: toggle_frames("highscore",
+                                                 frames))  # Display the highscore
+
+    initialize_variables()  # set to init values scores, round and etc
+
+    new_game(main_frame, frames)  # generate new game
 
 
 def generate_options(title):
@@ -239,8 +260,10 @@ def get_data_from_api():
     for word in categories.split("Category:")[1:]:
         hints.append(word.split("\'")[0])
 
-    hints = f"\nCategories: {'; '.join(str(index + 1) + ". " + hints[index] for index in range(3))}"
-    return title, summary, hints, options
+    if len(hints) > 0:
+        hints = f"\nCategories: {'; '.join(str(index + 1) + ". " + hints[index] for index in range(3))}"
+
+    return title, summary[:150], hints, options
 
 
 def get_name():
@@ -283,7 +306,3 @@ def get_title_and_summary_imagelink():
     summary = return_value["extract"]
     image_link = return_value["thumbnail"]["source"]
     return title, summary, image_link
-
-
-if __name__ == "__main__":
-    pass

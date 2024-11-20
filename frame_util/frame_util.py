@@ -193,18 +193,21 @@ def how_to_play(frames):
 
 
 def credits_func(frames):
-    credits_frame = ck.CTkFrame(frames["credits"], width=750, height=550, fg_color="transparent")
+    credits_frame = ck.CTkFrame(frames["credits"], width=750, height=550,
+                                fg_color="transparent")
     credits_title_label = ck.CTkLabel(credits_frame, text="Credits",
-                                  font=("Arial", 40, "bold"))
+                                      font=("Arial", 40, "bold"))
     credits_title_label.pack(pady=10, anchor="center")
     credits_label = ck.CTkLabel(credits_frame,
-                                           text="Jerome de Dios\n"
-                                                "Martin Kaiser\n"
-                                                "Mark Wernthaler",
-                                           font=("Arial", 30))
+                                text="Jerome de Dios\n"
+                                     "Martin Kaiser\n"
+                                     "Mark Wernthaler\n\n"
+                                     "Mentor: Shoval Zvulun",
+                                font=("Arial", 30))
     credits_label.pack(pady=10)
 
-    action_frame = ck.CTkFrame(credits_frame, width=100, height=100, fg_color="transparent")
+    action_frame = ck.CTkFrame(credits_frame, width=100, height=100,
+                               fg_color="transparent")
     action_frame.pack(fill="x", pady=20, padx=50)
     button_back_main_menu = create_button(action_frame, "Back to Main Menu")
     button_back_main_menu.configure(
@@ -213,6 +216,7 @@ def credits_func(frames):
     action_frame.pack(anchor="center")
 
     credits_frame.pack()
+
 
 def create_button(button_frame, l_shuffled):
     return ck.CTkButton(button_frame, text=l_shuffled)
