@@ -15,7 +15,7 @@ frames = {
     "play": ck.CTkFrame(root, fg_color="transparent"),
     "highscore": ck.CTkFrame(root, fg_color="transparent"),
     "htp": ck.CTkFrame(root, fg_color="transparent"),
-    "credits": ck.CTkLabel(root, fg_color="transparent")
+    "credits": ck.CTkFrame(root, fg_color="transparent")
 }
 
 root.geometry("1000x1100+400+50")
@@ -37,7 +37,10 @@ high_score_board(frames)
 how_to_play(frames)
 
 """Menu"""
-
 toggle_frames("menu", frames)
 
+"""Credits"""
+credits_func(frames)
+
 root.mainloop()
+
