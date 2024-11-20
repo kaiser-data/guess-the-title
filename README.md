@@ -76,7 +76,7 @@
 ## Installation  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/your-repo/trivia-challenge-game.git
+   git clone git@github.com:masterschool-weiterbildung/guess-the-title.git
 
 2. Navigate to the project directory:  
    ```bash
