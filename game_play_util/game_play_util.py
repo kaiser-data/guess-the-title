@@ -24,10 +24,12 @@ global counter_round, counter_life, counter_score
 def initialize_variables():
     global counter_round, counter_life, counter_score, player_name, var_life, var_round, var_score
 
-    dialog = CTkInputDialog(text="Please enter your name: ",
-                            title="Player Name")
+    if not player_name:
+        dialog = CTkInputDialog(text="Please enter your name: ",
+                                title="Player Name")
 
-    player_name = dialog.get_input()
+        player_name = dialog.get_input()
+
     counter_life = 3
     counter_round = 1
     counter_score = 0

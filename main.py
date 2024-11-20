@@ -5,8 +5,6 @@ from frame_util.frame_util import *
 from PIL import Image
 import customtkinter as ck
 
-player_name = 'Jerome'
-
 root = ck.CTk()
 
 frames = {
