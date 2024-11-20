@@ -4,7 +4,6 @@ from PIL import Image
 
 from data_util.data_util import get_scores
 
-player_name = 'Jerome'
 toggle_state = 0
 
 var_round = None

@@ -22,8 +22,6 @@ root.title("Guess the title")
 image = Image.open("guess.png")
 create_menu_frame(image, frames)
 
-"""Enter name"""
-
 """ PLAY """
 initialize_variables()
 new_game(frames["play"], frames)

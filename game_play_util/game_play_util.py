@@ -14,7 +14,7 @@ sys.path.append(
 from api_util.api_util import *
 from frame_util.frame_util import *
 
-global player_name
+player_name = "name"
 global var_round
 global var_life
 global var_score
@@ -24,7 +24,7 @@ global counter_round, counter_life, counter_score
 def initialize_variables():
     global counter_round, counter_life, counter_score, player_name, var_life, var_round, var_score
 
-    if not player_name:
+    if player_name == "name":
         dialog = CTkInputDialog(text="Please enter your name: ",
                                 title="Player Name")
 
@@ -71,7 +71,7 @@ def get_data_from_api():
         hints.append(word.split("\'")[0])
 
     hints = f"\nCategories: {'; '.join(str(index + 1) + ". " + hints[index] for index in range(3))}"
-    return title, summary, hints, options
+    return title, summary[:150], hints, options
 
 
 def remove_title_from_summary(title, summary):
