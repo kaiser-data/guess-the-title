@@ -1,10 +1,9 @@
 import urllib
-
 import requests
 import json
 
 
-def get_the_title_summary() -> str:
+def get_the_title_summary() -> dict[str, str]:  #MK changed to form str to dict[str, str]
     try:
         response = requests.get(
             "https://en.wikipedia.org/api/rest_v1/page/random/summary",
@@ -44,31 +43,10 @@ def download_image(url, save_as):
     urllib.request.urlretrieve(url, save_as)
 
 
+
+
 def main():
-    return_value = get_the_title_summary()
+    pass
 
-    title = return_value["title"]
-
-    summary = return_value["extract"]
-
-    image_link = return_value["thumbnail"]["source"]
-
-    download_image(image_link, "image.jpg")
-
-    title_random = get_the_random_title()
-
-    print(title_random)
-
-    print(return_value)
-    print(image_link)
-    print(title)
-    print(summary)
-
-    categories = get_the_title_categories(title)
-
-    for word in categories.split("Category:")[1:]:  # Categories
-        print(word.split("\'")[0])
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
