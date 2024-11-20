@@ -27,7 +27,7 @@ create_menu_frame(image, frames)
 """Enter name"""
 
 """ PLAY """
-initialize_variables("Jerome")
+initialize_variables()
 new_game(frames["play"], frames)
 
 """ HIGHSCORE """

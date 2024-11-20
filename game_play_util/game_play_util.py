@@ -4,6 +4,8 @@ import time
 from tkinter import StringVar
 import random
 
+from customtkinter import CTkInputDialog
+
 from data_util.data_util import set_score
 
 sys.path.append(
@@ -19,10 +21,13 @@ global var_score
 global counter_round, counter_life, counter_score
 
 
-def initialize_variables(player):
+def initialize_variables():
     global counter_round, counter_life, counter_score, player_name, var_life, var_round, var_score
 
-    player_name = player
+    dialog = CTkInputDialog(text="Please enter your name: ",
+                            title="Player Name")
+
+    player_name = dialog.get_input()
     counter_life = 3
     counter_round = 1
     counter_score = 0
@@ -170,7 +175,7 @@ def generate_new_set_of_data(main_frame, frames, summary, title,
 
 
 def restart_game(frames):
-    initialize_variables("Jerome")
+    initialize_variables()
     new_game(frames["play"], frames)
 
 
