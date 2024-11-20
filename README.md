@@ -20,7 +20,7 @@
    - Lives (starting at 3) and scores are displayed throughout the game.  
 
 3. **Feedback Mechanisms**  
-   - **Correct Answer:** Gain 1 point and receive positive feedback.  
+   - **Correct Answer:** Gain 100 point and receive positive feedback.  
    - **Incorrect Answer:** Lose 1 life and see a helpful message.  
 
 4. **Game Loop**  
