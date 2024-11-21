@@ -112,8 +112,9 @@ def remove_title_from_summary(title, summary):
     Returns:
         str: The summary text with the title replaced by '?'.
     """
-    title = remove_special_characters(title)
     title_words = title.split()
+    title = remove_special_characters(title)
+    title_words = set(title.split() + title_words)
     summary_r_title = summary
     for word in title_words:
         summary_r_title = summary_r_title.replace(word, "?")
@@ -299,7 +300,12 @@ def answer_from_user(player_choice, correct_title, main_frame, frames,
         main_frame.after(1000, lambda: new_game(main_frame, frames))
 
     elif counter_life == 1:
-        end_game(counter_score, frames, image_label, main_frame, player_name)
+        replacement_image = CTkImage(light_image=Image.open("game_over.png"),
+                                     size=(400, 400))
+        image_label.configure(image=replacement_image)
+        main_frame.after(1000,
+                         lambda: end_game(counter_score, frames, image_label,
+                                          main_frame, player_name))
     else:
         counter_life -= 1
         var_life.set(f"Lives: {counter_life}")

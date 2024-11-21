@@ -52,8 +52,7 @@
 
 ## 🛠️ Technologies Used  
 - **Python**  
-- **Requests**: Fetch external movie data via APIs.  
-- **Python-Dotenv**: Secure environment variables.  
+- **Requests**: Fetch external movie data via APIs.   
 - **Wikipedia Rest API**:  lightweight, efficient API provided by Wikipedia to fetch random title, summary and image 
 - **CustomTkinter**: Python GUI framework built on top of the traditional Tkinter library.
 - **Urllib3**  HTTP client library for Python

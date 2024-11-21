@@ -58,7 +58,7 @@ def get_scores():
     for name, score in sorted_scores[:5]:
         print(f"{name}: {score}")
 
-    return sorted_scores
+    return sorted_scores[:5]
 
 
 def set_score(name, score):
