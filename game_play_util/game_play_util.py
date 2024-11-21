@@ -298,7 +298,7 @@ def answer_from_user(player_choice, correct_title, main_frame, frames,
         image_label.configure(image=replacement_image)
         main_frame.after(1000, lambda: new_game(main_frame, frames))
 
-    elif counter_life == 0:
+    elif counter_life == 1:
         end_game(counter_score, frames, image_label, main_frame, player_name)
     else:
         counter_life -= 1
@@ -336,6 +336,8 @@ def end_game(counter_score, frames, image_label, main_frame, player_name):
     replacement_image = CTkImage(light_image=Image.open("game_over.png"),
                                  size=(400, 400))
     image_label.configure(image=replacement_image)  # update the image
+
+    time.sleep(1)
 
     clearFrame(
         frames["highscore"])  # clear the highscore frames with elements
